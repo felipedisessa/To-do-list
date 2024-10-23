@@ -28,6 +28,8 @@ return [
 
     'env' => env('APP_ENV', 'production'),
 
+    'dev_login' => env('APP_DEV_LOGIN', false),
+
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode

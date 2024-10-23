@@ -15,6 +15,31 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans text-slate-900 antialiased">
+
+    @if(config('app.dev_login') === true)
+        <div class="flex items-center space-x-4 justify-center bg-[#2096a8]">
+            <div class="flex space-x-4 justify-between font-black">
+                <span  class="py-1 px-4 rounded-md bg-[#207e90] border-[#3ad4bd] text-white">{{$branch}}</span>
+                <span  class="py-1 px-4 rounded-md bg-[#207e90] border-[#3ad4bd] text-white"> {{$env}}</span>
+            </div>
+            <form action="{{route('dev-login')}}" class=" font-semibold flex-col rounded-lg p-1">
+                <label class=" flex-auto text-white ">
+                    <select name="user"
+                            class="rounded-md bg-[#207e90] border-[#3ad4bd] p-1 px-4">
+                        <option value="1">Admin</option>
+                        @foreach($users as $user)
+                            <option value="{{$user->id}}">{{$user->name}}</option>
+                        @endforeach
+                    </select>
+                </label>
+                <button type="submit"
+                        class="px-4 py-1 bg-[#207e90] border-[#3ad4bd] hover:bg-[#1aaab3] hover:border-[#3ad4bd] text-white rounded-md">
+                    Login
+                </button>
+            </form>
+        </div>
+    @endif
+
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-slate-100 dark:bg-slate-900">
             <div>
                 <a href="/">
