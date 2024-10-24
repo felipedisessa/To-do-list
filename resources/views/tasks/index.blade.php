@@ -9,6 +9,7 @@
             </button>
         </div>
     </x-slot>
+    @livewire('task-list')
 </x-app-layout>
 
 @include('tasks.modal.create')
