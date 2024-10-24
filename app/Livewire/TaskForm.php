@@ -36,10 +36,9 @@ class TaskForm extends Component
             'completed' => false,
         ]);
 
-        // Limpar os campos após o cadastro
         $this->reset(['name', 'description', 'due_date', 'status', 'priority']);
 
-        // Emitir um evento ou exibir uma mensagem de sucesso
+        $this->dispatch('taskAdded');
         session()->flash('message', 'Tarefa cadastrada com sucesso!');
     }
 
