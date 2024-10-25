@@ -35,7 +35,7 @@
                     {{ $task->due_date }}
                 </td>
                 <td class="px-6 py-4">
-                    {{ $task->status }}
+                    {{ $task->status->label() }}
                 </td>
                 <td class="px-6 py-4">
                     {{ $task->priority }}

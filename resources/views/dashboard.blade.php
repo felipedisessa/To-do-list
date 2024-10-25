@@ -7,11 +7,7 @@
 
     <div class="py-6">
         <div class="w-full mx-auto sm:px-6 lg:px-4">
-            <div class="bg-white dark:bg-slate-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-slate-900 dark:text-slate-100">
-                    {{ __("You're logged in!") }}
-                </div>
-            </div>
+            <livewire:task-board />
         </div>
     </div>
 </x-app-layout>

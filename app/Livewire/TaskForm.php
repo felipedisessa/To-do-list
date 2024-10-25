@@ -11,7 +11,7 @@ class TaskForm extends Component
     public $name;
     public $description;
     public $due_date;
-    public $status;
+    public $status = 'preparation';
     public $priority;
 
     protected $rules = [
