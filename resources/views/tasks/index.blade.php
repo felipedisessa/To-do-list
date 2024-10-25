@@ -12,4 +12,5 @@
     @livewire('task-list')
 </x-app-layout>
 
+@include('tasks.modal.edit')
 @include('tasks.modal.create')
