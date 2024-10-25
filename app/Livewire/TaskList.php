@@ -21,6 +21,15 @@ class TaskList extends Component
         $this->tasks = Task::where('user_id', auth()->id())->get();
     }
 
+    public function deleteTask($taskId)
+    {
+        $task = Task::findOrFail($taskId);
+        $task->delete();
+
+        $this->loadTasks(); // Recarrega a lista após a exclusão
+        session()->flash('message', 'Tarefa excluída com sucesso!');
+    }
+
     public function render()
     {
         return view('livewire.task-list');
