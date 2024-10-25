@@ -7,15 +7,9 @@ use App\Models\Task;
 class TaskBoard extends Component
 {
     public $tasks;
+    public $draggingTaskId = null;
 
     protected $listeners = ['taskDropped' => 'handleTaskDrop'];
-
-    public function handleTaskDrop($newStatus)
-    {
-        if ($this->draggingTaskId) {
-            $this->updateTaskStatus($this->draggingTaskId, $newStatus);
-        }
-    }
 
     public function mount()
     {
@@ -24,7 +18,6 @@ class TaskBoard extends Component
 
     public function loadTasks()
     {
-        // Carrega as tarefas agrupadas por status
         $this->tasks = [
             'preparation' => Task::where('status', 'preparation')->get(),
             'in_progress' => Task::where('status', 'in_progress')->get(),
@@ -33,13 +26,13 @@ class TaskBoard extends Component
         ];
     }
 
-    public function updateTaskStatus($taskId, $newStatus)
+    public function handleTaskDrop($taskId, $newStatus)
     {
         $task = Task::find($taskId);
         if ($task) {
             $task->status = $newStatus;
             $task->save();
-            $this->loadTasks(); // Recarrega as tarefas para refletir a atualização
+            $this->loadTasks();
         }
     }
 

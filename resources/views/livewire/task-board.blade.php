@@ -1,11 +1,10 @@
 <div x-data="{ draggingTaskId: null }" class="flex space-x-4">
-    <!-- Colunas de Tarefas -->
     @foreach (['preparation' => 'Preparação', 'in_progress' => 'Em andamento', 'in_review' => 'Em revisão', 'completed' => 'Concluído'] as $status => $label)
         <div class="w-1/4 bg-gray-100 dark:bg-slate-700 rounded-lg p-4 shadow-md">
             <h3 class="text-lg font-semibold mb-4 text-gray-700 dark:text-white">{{ $label }}</h3>
 
             <!-- Zona de Soltar -->
-            <div x-on:drop.prevent="Livewire.emit('taskDropped', {{ $status }})"
+            <div x-on:drop.prevent="Livewire.dispatch('taskDropped', { taskId: draggingTaskId, newStatus: '{{ $status }}' })"
                  x-on:dragover.prevent
                  x-on:dragenter.prevent
                  class="min-h-[100px] bg-gray-50 dark:bg-slate-600 p-2 rounded-lg space-y-2">
