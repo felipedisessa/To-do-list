@@ -8,18 +8,13 @@ use App\Models\Task;
 
 class TaskList extends Component
 {
-    // Escuta o evento 'taskAdded' e executa o método 'loadTasks' quando o evento for disparado
-    protected $listeners = ['taskAdded' => 'loadTasks'];
-
-    public function mount()
-    {
-        $this->tasks();
-    }
+    // Escuta o evento 'taskAdded' e simplesmente recalcula as tarefas
+    protected $listeners = ['taskAdded' => '$refresh'];
 
     #[Computed]
     public function tasks(): Collection
     {
-       return Task::query()->where('user_id', auth()->id())->get();
+        return Task::query()->where('user_id', auth()->id())->get();
     }
 
     public function deleteTask($taskId)
@@ -27,7 +22,7 @@ class TaskList extends Component
         $task = Task::findOrFail($taskId);
         $task->delete();
 
-        $this->loadTasks(); // Recarrega a lista após a exclusão
+        // Atualiza a lista automaticamente por meio do Computed Property
         session()->flash('message', 'Tarefa excluída com sucesso!');
     }
 
