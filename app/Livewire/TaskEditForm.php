@@ -20,7 +20,7 @@ class TaskEditForm extends Component
         'name' => 'required|string|max:255',
         'description' => 'required|string',
         'due_date' => 'required|date',
-        'status' => 'required|string',
+        'status' => 'required',
         'priority' => 'required|string',
     ];
 
@@ -48,8 +48,7 @@ class TaskEditForm extends Component
             'priority' => $this->priority,
         ]);
 
-        dd($task);
-
+        $this->dispatch('taskAdded');
         session()->flash('message', 'Tarefa atualizada com sucesso!');
         $this->dispatch('taskUpdated'); // Usando dispatch para atualizar a lista
     }
