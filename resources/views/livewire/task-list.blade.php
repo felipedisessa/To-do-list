@@ -38,7 +38,7 @@
                     {{ $task->status->label() }}
                 </td>
                 <td class="px-6 py-4">
-                    {{ $task->priority }}
+                    {{ $task->priority->label() }}
                 </td>
                 <td class="px-6 py-4">
                     <button type="button" data-modal-target="edit-crud-modal" data-modal-toggle="edit-crud-modal"

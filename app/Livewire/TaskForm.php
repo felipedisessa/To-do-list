@@ -12,7 +12,7 @@ class TaskForm extends Component
     public $description;
     public $due_date;
     public $status = 'preparation';
-    public $priority;
+    public $priority = 'low';
 
     protected $rules = [
         'name' => 'required|string|max:255',
