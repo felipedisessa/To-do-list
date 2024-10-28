@@ -21,7 +21,7 @@ class TaskEditForm extends Component
         'description' => 'required|string',
         'due_date' => 'required|date',
         'status' => 'required',
-        'priority' => 'required|string',
+        'priority' => 'required',
     ];
 
     public function loadTaskData($taskId)

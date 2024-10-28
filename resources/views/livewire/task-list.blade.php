@@ -1,3 +1,4 @@
+@php use Carbon\Carbon; @endphp
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-6 w-full mx-auto sm:px-6 lg:px-4">
     <table class="w-full text-sm text-left text-slate-500 dark:text-slate-400">
         <thead class="text-xs text-slate-700 uppercase bg-slate-50 dark:bg-slate-700 dark:text-slate-400">
@@ -32,7 +33,7 @@
                     {{ $task->description }}
                 </td>
                 <td class="px-6 py-4">
-                    {{ $task->due_date }}
+                    {{ Carbon::parse($task->due_date)->format('d/m/Y') }}
                 </td>
                 <td class="px-6 py-4">
                     {{ $task->status->label() }}
