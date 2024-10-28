@@ -26,7 +26,7 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="flex flex-col w-full">
+                <div class="flex flex-col w-full md:mb-0 mb-2">
                     <label class="mb-2 text-sm font-medium text-slate-900 dark:text-white">Prioridade</label>
                     <select wire:model.live="priorityFilter" class="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full sm:w-auto p-2.5 dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option value="">Todos</option>
