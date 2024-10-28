@@ -1,24 +1,25 @@
 <?php
 namespace App\Livewire;
 
+use Illuminate\Database\Eloquent\Collection;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use App\Models\Task;
 
 class TaskList extends Component
 {
-    public $tasks;
-
     // Escuta o evento 'taskAdded' e executa o método 'loadTasks' quando o evento for disparado
     protected $listeners = ['taskAdded' => 'loadTasks'];
 
     public function mount()
     {
-        $this->loadTasks();
+        $this->tasks();
     }
 
-    public function loadTasks()
+    #[Computed]
+    public function tasks(): Collection
     {
-        $this->tasks = Task::where('user_id', auth()->id())->get();
+       return Task::query()->where('user_id', auth()->id())->get();
     }
 
     public function deleteTask($taskId)

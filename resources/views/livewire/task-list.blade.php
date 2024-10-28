@@ -23,7 +23,7 @@
         </tr>
         </thead>
         <tbody>
-        @foreach ($tasks as $task)
+        @foreach ($this->tasks as $task)
             <tr class="bg-white border-b dark:bg-slate-800 dark:border-slate-700">
                 <td class="px-6 py-4 font-medium text-slate-900 whitespace-nowrap dark:text-white">
                     {{ $task->name }}

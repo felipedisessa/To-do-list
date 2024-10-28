@@ -1,22 +1,23 @@
 <?php
 namespace App\Livewire;
 
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use App\Models\Task;
 
 class TaskBoard extends Component
 {
-    public $tasks;
-    public $draggingTaskId = null;
+    public array $tasks = [];
+    public string $draggingTaskId = '';
 
     protected $listeners = ['taskDropped' => 'handleTaskDrop'];
 
-    public function mount()
+    public function mount(): void
     {
         $this->loadTasks();
     }
 
-    public function loadTasks()
+    public function loadTasks(): void
     {
         $this->tasks = [
             'preparation' => Task::where('status', 'preparation')->get(),
@@ -26,7 +27,7 @@ class TaskBoard extends Component
         ];
     }
 
-    public function handleTaskDrop($taskId, $newStatus)
+    public function handleTaskDrop($taskId, $newStatus): void
     {
         $task = Task::find($taskId);
         if ($task) {
@@ -36,7 +37,7 @@ class TaskBoard extends Component
         }
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.task-board');
     }
