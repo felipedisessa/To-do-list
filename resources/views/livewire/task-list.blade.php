@@ -1,5 +1,19 @@
 @php use Carbon\Carbon; @endphp
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-6 w-full mx-auto sm:px-6 lg:px-4">
+
+    <div class="flex items-center justify-between pb-4 bg-white dark:bg-slate-800">
+        <form>
+            <label for="statusFilter" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecione um status</label>
+            <select id="statusFilter" wire:model.live="statusFilter" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option value="">Escolha um status</option>
+                <option value="in_progress">Em andamento</option>
+                <option value="completed">Concluído</option>
+                <option value="in_review">Revisão</option>
+                <option value="preparation">Preparação</option>
+            </select>
+        </form>
+    </div>
+
     <table class="w-full text-sm text-left text-slate-500 dark:text-slate-400">
         <thead class="text-xs text-slate-700 uppercase bg-slate-50 dark:bg-slate-700 dark:text-slate-400">
         <tr>

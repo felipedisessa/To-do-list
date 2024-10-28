@@ -8,13 +8,20 @@ use App\Models\Task;
 
 class TaskList extends Component
 {
-    // Escuta o evento 'taskAdded' e simplesmente recalcula as tarefas
+    public string $statusFilter = '';
+
     protected $listeners = ['taskAdded' => '$refresh'];
 
     #[Computed]
     public function tasks(): Collection
     {
-        return Task::query()->where('user_id', auth()->id())->get();
+        $query = Task::query()->where('user_id', auth()->id());
+
+        if ($this->statusFilter) {
+            $query->where('status', $this->statusFilter);
+        }
+
+        return $query->get();
     }
 
     public function deleteTask($taskId)
@@ -22,7 +29,6 @@ class TaskList extends Component
         $task = Task::findOrFail($taskId);
         $task->delete();
 
-        // Atualiza a lista automaticamente por meio do Computed Property
         session()->flash('message', 'Tarefa excluída com sucesso!');
     }
 
