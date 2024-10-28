@@ -9,6 +9,8 @@ use App\Models\Task;
 class TaskList extends Component
 {
     public string $statusFilter = '';
+    public string $priorityFilter = '';
+    public string $dateFilter = '';
 
     protected $listeners = ['taskAdded' => '$refresh'];
 
@@ -19,6 +21,14 @@ class TaskList extends Component
 
         if ($this->statusFilter) {
             $query->where('status', $this->statusFilter);
+        }
+
+        if ($this->priorityFilter) {
+            $query->where('priority', $this->priorityFilter);
+        }
+
+        if ($this->dateFilter) {
+            $query->whereDate('due_date', $this->dateFilter);
         }
 
         return $query->get();
