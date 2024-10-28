@@ -1,6 +1,6 @@
-<div x-data="{ draggingTaskId: null }" class="flex space-x-4">
+<div x-data="{ draggingTaskId: null }" class="flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
     @foreach (['preparation' => 'Preparação', 'in_progress' => 'Em andamento', 'in_review' => 'Em revisão', 'completed' => 'Concluído'] as $status => $label)
-        <div class="w-1/4 bg-gray-100 dark:bg-slate-700 rounded-lg p-4 shadow-md">
+        <div class="w-full sm:w-1/4 bg-gray-100 dark:bg-slate-700 rounded-lg p-4 shadow-md">
             <h3 class="text-lg font-semibold mb-4 text-gray-700 dark:text-white">{{ $label }}</h3>
 
             <!-- Zona de Soltar -->
