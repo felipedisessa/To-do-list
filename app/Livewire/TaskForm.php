@@ -33,7 +33,6 @@ class TaskForm extends Component
             'due_date' => $this->due_date,
             'status' => $this->status,
             'priority' => $this->priority,
-            'completed' => false,
         ]);
 
         $this->reset(['name', 'description', 'due_date', 'status', 'priority']);

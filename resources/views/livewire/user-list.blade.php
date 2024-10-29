@@ -1,3 +1,7 @@
+@php
+    use App\Enums\UserRole
+@endphp
+
 <div>
     @if (session()->has('message'))
         <div class="p-3 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">
@@ -10,6 +14,7 @@
         <tr>
             <th scope="col" class="px-6 py-3">Nome</th>
             <th scope="col" class="px-6 py-3">E-mail</th>
+            <th scope="col" class="px-6 py-3">Permissão</th>
             <th scope="col" class="px-6 py-3">Ações</th>
         </tr>
         </thead>
@@ -18,6 +23,7 @@
             <tr class="bg-white border-b dark:bg-slate-800 dark:border-slate-700">
                 <td class="px-6 py-4 font-medium text-slate-900 whitespace-nowrap dark:text-white">{{ $user->name }}</td>
                 <td class="px-6 py-4">{{ $user->email }}</td>
+                <td class="px-6 py-4">{{ UserRole::from($user->role)->label() }}</td>
                 <td class="px-6 py-4">
                     <button type="button" data-modal-target="edit-user-modal" data-modal-toggle="edit-user-modal"
                             wire:click="$dispatch('loadUser', { userId: {{ $user->id }} })"

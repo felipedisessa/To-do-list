@@ -19,8 +19,7 @@ return new class extends Migration
             $table->date('due_date');
             $table->string('status');
             $table->string('priority');
-            $table->boolean('completed')->default(false);
-            $table->softDeletes(); // Adiciona a coluna para soft delete
+            $table->softDeletes();
             $table->timestamps();
         });
     }

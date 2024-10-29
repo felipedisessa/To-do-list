@@ -9,7 +9,7 @@ use Illuminate\Validation\Rule;
 
 class UserEdit extends Component
 {
-    public $userId, $name, $email, $password;
+    public $userId, $name, $email, $role, $password;
 
     protected $listeners = ['loadUser' => 'loadUserData'];
 
@@ -18,6 +18,7 @@ class UserEdit extends Component
         return [
             'name' => 'required|string|max:255',
             'email' => ['required', 'email', Rule::unique('users', 'email')->ignore($this->userId)],
+            'role' => 'required',
             'password' => 'nullable|min:6',
         ];
     }
@@ -28,6 +29,7 @@ class UserEdit extends Component
         $this->userId = $user->id;
         $this->name = $user->name;
         $this->email = $user->email;
+        $this->role = $user->role;
     }
 
     public function updateUser()
@@ -38,6 +40,7 @@ class UserEdit extends Component
         $user->update([
             'name' => $this->name,
             'email' => $this->email,
+            'role' => $this->role,
             'password' => $this->password ? Hash::make($this->password) : $user->password,
         ]);
 
