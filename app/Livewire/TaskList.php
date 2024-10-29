@@ -11,13 +11,16 @@ class TaskList extends Component
     public string $statusFilter = '';
     public string $priorityFilter = '';
     public string $dateFilter = '';
+    public bool $showDeleted = false;
 
     protected $listeners = ['taskAdded' => '$refresh'];
 
     #[Computed]
     public function tasks(): Collection
     {
-        $query = Task::query()->where('user_id', auth()->id());
+        $query = $this->showDeleted
+            ? Task::withTrashed()->where('user_id', auth()->id())
+            : Task::query()->where('user_id', auth()->id());
 
         if ($this->statusFilter) {
             $query->where('status', $this->statusFilter);

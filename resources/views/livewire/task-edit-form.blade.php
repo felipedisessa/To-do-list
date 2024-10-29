@@ -11,11 +11,11 @@
         </div>
     @endif
 
-    <form wire:submit.prevent="submit" class="space-y-6">
+    <form wire:submit="submit" class="space-y-6">
         <!-- Nome da Tarefa -->
         <div>
             <label for="name" class="block mb-2 text-sm font-medium text-slate-900 dark:text-white">Nome da Tarefa:</label>
-            <input type="text" id="name" wire:model="name"
+            <input type="text" id="name" wire:model.live="name"
                    class="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white"
                    required>
             @error('name') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
@@ -24,7 +24,7 @@
         <!-- Descrição -->
         <div>
             <label for="description" class="block mb-2 text-sm font-medium text-slate-900 dark:text-white">Descrição:</label>
-            <textarea id="description" wire:model="description"
+            <textarea id="description" wire:model.live="description"
                       class="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white"
                       required></textarea>
             @error('description') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
@@ -33,7 +33,7 @@
         <!-- Data de Vencimento -->
         <div>
             <label for="due_date" class="block mb-2 text-sm font-medium text-slate-900 dark:text-white">Data de Vencimento:</label>
-            <input type="date" id="due_date" wire:model="due_date"
+            <input type="date" id="due_date" wire:model.live="due_date"
                    class="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white"
                    required>
             @error('due_date') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
@@ -42,7 +42,7 @@
         <!-- Status -->
         <div>
             <label for="status" class="block mb-2 text-sm font-medium text-slate-900 dark:text-white">Status:</label>
-            <select id="status" wire:model="status"
+            <select id="status" wire:model.live="status"
                     class="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white">
                 @foreach (TaskStatus::options() as $value => $label)
                     <option value="{{ $value }}">{{ $label }}</option>
@@ -54,7 +54,7 @@
         <!-- Prioridade -->
         <div>
             <label for="priority" class="block mb-2 text-sm font-medium text-slate-900 dark:text-white">Prioridade:</label>
-            <select id="priority" wire:model="priority"
+            <select id="priority" wire:model.live="priority"
                     class="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white">
                 @foreach (TaskPriority::options() as $value => $label)
                     <option value="{{ $value }}">{{ $label }}</option>

@@ -20,10 +20,10 @@ return new class extends Migration
             $table->string('status');
             $table->string('priority');
             $table->boolean('completed')->default(false);
+            $table->softDeletes(); // Adiciona a coluna para soft delete
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */

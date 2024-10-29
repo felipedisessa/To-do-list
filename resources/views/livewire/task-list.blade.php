@@ -4,42 +4,47 @@
     use App\Enums\TaskPriority;
 @endphp
 
-
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-6 w-full mx-auto sm:px-6 lg:px-4">
     <!-- Seção de Filtros -->
-    <div class="bg-white dark:bg-slate-800 px-4 py-3">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-6">
-            <div class="flex items-center mb-4 sm:mb-0">
-                <svg class="w-6 h-6 text-slate-800 dark:text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M18.796 4H5.204a1 1 0 0 0-.753 1.659l5.302 6.058a1 1 0 0 1 .247.659v4.874a.5.5 0 0 0 .2.4l3 2.25a.5.5 0 0 0 .8-.4v-7.124a1 1 0 0 1 .247-.659l5.302-6.059c.566-.646.106-1.658-.753-1.658Z"/>
-                </svg>
-                <span class="text-lg font-medium text-slate-900 dark:text-white">Filtros</span>
+    <div class="bg-white dark:bg-slate-800 p-6 rounded-lg mb-6">
+        <div class="flex items-center mb-4">
+            <svg class="w-6 h-6 text-slate-800 dark:text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M18.796 4H5.204a1 1 0 0 0-.753 1.659l5.302 6.058a1 1 0 0 1 .247.659v4.874a.5.5 0 0 0 .2.4l3 2.25a.5.5 0 0 0 .8-.4v-7.124a1 1 0 0 1 .247-.659l5.302-6.059c.566-.646.106-1.658-.753-1.658Z"/>
+            </svg>
+            <span class="text-lg font-medium text-slate-900 dark:text-white">Filtros</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            <!-- Filtro de Status -->
+            <div>
+                <label class="block mb-2 text-sm font-medium text-slate-900 dark:text-white">Status</label>
+                <select wire:model.live="statusFilter" class="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option value="">Todos</option>
+                    @foreach (TaskStatus::options() as $value => $label)
+                        <option value="{{ $value }}">{{ $label }}</option>
+                    @endforeach
+                </select>
             </div>
-            <!-- Filtros -->
-            <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-4 w-full">
-                <div class="flex flex-col mb-4 sm:mb-0 w-full">
-                    <label class="mb-2 text-sm font-medium text-slate-900 dark:text-white">Status</label>
-                    <select wire:model.live="statusFilter" class="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full sm:w-auto p-2.5 dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option value="">Todos</option>
-                        @foreach (TaskStatus::options() as $value => $label)
-                            <option value="{{ $value }}">{{ $label }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="flex flex-col w-full md:mb-0 mb-2">
-                    <label class="mb-2 text-sm font-medium text-slate-900 dark:text-white">Prioridade</label>
-                    <select wire:model.live="priorityFilter" class="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full sm:w-auto p-2.5 dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option value="">Todos</option>
-                        @foreach (TaskPriority::options() as $value => $label)
-                            <option value="{{ $value }}">{{ $label }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="flex flex-col w-full">
-                    <label class="mb-2 text-sm font-medium text-slate-900 dark:text-white">Data de Vencimento</label>
-                    <input type="date" wire:model.live="dateFilter"
-                           class="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full sm:w-auto p-2.5 dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                </div>
+            <!-- Filtro de Prioridade -->
+            <div>
+                <label class="block mb-2 text-sm font-medium text-slate-900 dark:text-white">Prioridade</label>
+                <select wire:model.live="priorityFilter" class="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option value="">Todos</option>
+                    @foreach (TaskPriority::options() as $value => $label)
+                        <option value="{{ $value }}">{{ $label }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <!-- Filtro de Data de Vencimento -->
+            <div>
+                <label class="block mb-2 text-sm font-medium text-slate-900 dark:text-white">Data de Vencimento</label>
+                <input type="date" wire:model.live="dateFilter"
+                       class="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            </div>
+            <!-- Checkbox para Exibir Tarefas Deletadas -->
+            <div class="flex items-center mt-6">
+                <input type="checkbox" id="show-deleted-checkbox" wire:model.live="showDeleted"
+                       class="w-4 h-4 text-blue-600 bg-slate-50 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-slate-800 focus:ring-2 dark:bg-slate-700 dark:border-slate-600">
+                <label for="show-deleted-checkbox" class="ml-2 text-sm font-medium text-slate-900 dark:text-gray-300">Exibir Tarefas Deletadas</label>
             </div>
         </div>
     </div>
@@ -67,15 +72,17 @@
                 <td class="px-6 py-4">{{ $task->status->label() }}</td>
                 <td class="px-6 py-4">{{ $task->priority->label() }}</td>
                 <td class="px-6 py-4">
-                    <button type="button" data-modal-target="edit-crud-modal" data-modal-toggle="edit-crud-modal"
-                            wire:click="$dispatch('loadTask', { taskId: {{ $task->id }} })"
-                            class="focus:outline-none text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900">
-                        Editar
-                    </button>
-                    <button type="button" wire:click="deleteTask({{ $task->id }})"
-                            class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
-                        Excluir
-                    </button>
+                    @if (!$task->deleted_at)
+                        <button type="button" data-modal-target="edit-crud-modal" data-modal-toggle="edit-crud-modal"
+                                wire:click="$dispatch('loadTask', { taskId: {{ $task->id }} })"
+                                class="focus:outline-none text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900">
+                            Editar
+                        </button>
+                        <button type="button" wire:click="deleteTask({{ $task->id }})"
+                                class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+                            Excluir
+                        </button>
+                    @endif
                 </td>
             </tr>
         @endforeach
