@@ -48,8 +48,12 @@
             </div>
         </div>
     </div>
+    @if (session()->has('message'))
+        <div class="p-3 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">
+            {{ session('message') }}
+        </div>
+    @endif
 
-    <!-- Tabela de Tarefas -->
     <table class="w-full text-sm text-left text-slate-500 dark:text-slate-400">
         <thead class="text-xs text-slate-700 uppercase bg-slate-50 dark:bg-slate-700 dark:text-slate-400">
         <tr>

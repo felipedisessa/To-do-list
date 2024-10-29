@@ -18,9 +18,11 @@
                     <x-nav-link :href="route('tasks.index')" :active="request()->routeIs('tasks.index')">
                         {{ __('Lista de Tarefas') }}
                     </x-nav-link>
+                    @can('admin-access')
                     <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
                             {{ __('Lista de Usuários') }}
                     </x-nav-link>
+                    @endcan
                 </div>
             </div>
 
@@ -79,9 +81,11 @@
             <x-responsive-nav-link :href="route('tasks.index')" :active="request()->routeIs('tasks.index')">
                 {{ __('Lista de Tarefas') }}
             </x-responsive-nav-link>
+            @can('admin-access')
             <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
                 {{ __('Lista de Usuários') }}
             </x-responsive-nav-link>
+            @endcan
         </div>
 
         <!-- Responsive Settings Options -->

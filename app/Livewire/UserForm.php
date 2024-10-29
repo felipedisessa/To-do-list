@@ -3,7 +3,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\User;
-use App\Enums\UserRole; // Importe o Enum
+use App\Enums\UserRole;
 use Illuminate\Support\Facades\Hash;
 
 class UserForm extends Component
@@ -19,7 +19,6 @@ class UserForm extends Component
 
     public function render()
     {
-        // Envia o array de valores do Enum para a view
         return view('livewire.user-form', [
             'roles' => UserRole::cases(),
         ]);
@@ -29,21 +28,19 @@ class UserForm extends Component
     {
         $this->name = '';
         $this->email = '';
-        $this->role = UserRole::User->value; // valor padrão
+        $this->role = '';
         $this->password = '';
     }
 
     public function storeUser()
     {
         $this->validate();
-
         User::create([
             'name' => $this->name,
             'email' => $this->email,
             'role' => $this->role,
             'password' => Hash::make($this->password),
         ]);
-
         $this->resetFields();
         $this->dispatch('userUpdated');
         session()->flash('message', 'Usuário criado com sucesso.');

@@ -1,3 +1,7 @@
+@php
+    use App\Enums\UserRole;
+@endphp
+
 <div>
     @if (session()->has('message'))
         <div class="p-3 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">
@@ -30,8 +34,8 @@
                     class="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white"
                     required>
                 <option value="">Selecione uma permissão</option>
-                @foreach ($roles as $roleOption)
-                    <option value="{{ $roleOption->value }}">{{ $roleOption->label() }}</option>
+                @foreach (UserRole::options() as $value => $label)
+                    <option value="{{ $value }}">{{ $label }}</option>
                 @endforeach
             </select>
             @error('role') <span class="text-sm text-red-600">{{ $message }}</span> @enderror

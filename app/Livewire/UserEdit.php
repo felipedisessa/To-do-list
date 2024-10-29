@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\User;
+use App\Enums\UserRole;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
@@ -45,11 +46,13 @@ class UserEdit extends Component
         ]);
 
         session()->flash('message', 'Usuário atualizado com sucesso!');
-        $this->dispatch('userUpdated'); // Emite o evento para atualizar a lista de usuários
+        $this->dispatch('userUpdated');
     }
 
     public function render()
     {
-        return view('livewire.user-edit');
+        return view('livewire.user-edit', [
+            'roles' => UserRole::cases(), // Passa os papéis para a visualização
+        ]);
     }
 }

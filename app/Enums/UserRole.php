@@ -14,4 +14,12 @@ enum UserRole: string
             self::Admin => 'Administrador',
         };
     }
+
+    public static function options(): array
+    {
+        return [
+            self::User->value => self::User->label(),
+            self::Admin->value => self::Admin->label(),
+        ];
+    }
 }

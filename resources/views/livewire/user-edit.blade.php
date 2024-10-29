@@ -24,6 +24,19 @@
             @error('email') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
         </div>
 
+        <div>
+            <label for="role" class="block mb-2 text-sm font-medium text-slate-900 dark:text-white">Permissão:</label>
+            <select wire:model.live="role"
+                    class="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white"
+                    required>
+                <option value="">Selecione uma permissão</option>
+                @foreach ($roles as $roleOption)
+                    <option value="{{ $roleOption->value }}">{{ $roleOption->label() }}</option>
+                @endforeach
+            </select>
+            @error('role') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
+        </div>
+
         <!-- Senha -->
         <div>
             <label for="password" class="block mb-2 text-sm font-medium text-slate-900 dark:text-white">Senha (Deixe em branco para não alterar):</label>
