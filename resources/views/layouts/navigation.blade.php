@@ -79,6 +79,9 @@
             <x-responsive-nav-link :href="route('tasks.index')" :active="request()->routeIs('tasks.index')">
                 {{ __('Lista de Tarefas') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
+                {{ __('Lista de Usuários') }}
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->

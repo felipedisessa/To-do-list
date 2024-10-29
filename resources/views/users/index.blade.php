@@ -9,9 +9,13 @@
                     {{ __('Usuários') }}
                 </h2>
             </div>
-            <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+            <button data-modal-target="create-user-modal" data-modal-toggle="create-user-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
                 Criar Usuário
             </button>
         </div>
     </x-slot>
+    @livewire('user-list')
 </x-app-layout>
+
+@include('users.modal.create')
+@include('users.modal.edit')
