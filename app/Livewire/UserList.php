@@ -10,13 +10,16 @@ use App\Models\User;
 class UserList extends Component
 {
     public string $roleFilter = '';
+    public bool $showDeleted = false;
 
     protected $listeners = ['userUpdated' => '$refresh'];
 
     #[Computed]
     public function users(): Collection
     {
-        $query = User::query();
+        $query = $this->showDeleted
+            ? User::withTrashed()
+            : User::query();
 
         if ($this->roleFilter) {
             $query->where('role', $this->roleFilter);
