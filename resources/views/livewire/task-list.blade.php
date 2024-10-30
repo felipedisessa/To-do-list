@@ -58,7 +58,7 @@
         <thead class="text-xs text-slate-700 uppercase bg-slate-50 dark:bg-slate-700 dark:text-slate-400">
         <tr>
             <th scope="col" class="px-6 py-3">Nome da Tarefa</th>
-            <th scope="col" class="px-6 py-3">Descrição</th>
+            <th scope="col" class="px-3 py-3">Descrição</th>
             <th scope="col" class="px-6 py-3">Data de Vencimento</th>
             <th scope="col" class="px-6 py-3">Status</th>
             <th scope="col" class="px-6 py-3">Prioridade</th>
@@ -72,30 +72,38 @@
                     {{ $task->name }}
                 </td>
                 <td class="px-6 py-4">{{ $task->description }}</td>
-                <td class="px-6 py-4">{{ Carbon::parse($task->due_date)->format('d/m/Y') }}</td>
                 <td class="px-6 py-4">
-    <span class="
-        {{ $task->status->value === 'completed'
-            ? 'bg-green-200 text-green-800 dark:bg-green-700 dark:text-green-100'
-            : 'bg-blue-200 text-blue-800 dark:bg-blue-700 dark:text-blue-100'
-        }} text-xs font-medium px-2.5 py-0.5 rounded">
-        {{ $task->status->label() }}
-    </span>
+                    <span class="
+                        {{ Carbon::parse($task->due_date)->isPast()
+                            ? 'bg-red-100 text-red-800 dark:bg-red-700 dark:text-red-100'
+                            : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'
+                        }} text-xs font-medium px-2.5 py-0.5 rounded">
+                        {{ Carbon::parse($task->due_date)->format('d/m/Y') }}
+                    </span>
                 </td>
                 <td class="px-6 py-4">
-    <span class="
-        @if ($task->priority->value === 'low')
-            bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-blue-200
-        @elseif ($task->priority->value === 'medium')
-            bg-yellow-100 text-yellow-800 dark:bg-yellow-700 dark:text-yellow-100
-        @elseif ($task->priority->value === 'high')
-            bg-red-100 text-red-800 dark:bg-red-700 dark:text-red-100
-        @else
-            bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300
-        @endif
-        text-xs font-medium px-2.5 py-0.5 rounded">
-        {{ $task->priority->label() }}
-    </span>
+                    <span class="
+                        {{ $task->status->value === 'completed'
+                            ? 'bg-green-200 text-green-800 dark:bg-green-700 dark:text-green-100'
+                            : 'bg-blue-200 text-blue-800 dark:bg-blue-700 dark:text-blue-100'
+                        }} text-xs font-medium px-2.5 py-0.5 rounded">
+                        {{ $task->status->label() }}
+                    </span>
+                </td>
+                <td class="px-6 py-4">
+                    <span class="
+                        @if ($task->priority->value === 'low')
+                            bg-slate-100 text-slate-800 dark:bg-slate-700 dark:text-slate-200
+                        @elseif ($task->priority->value === 'medium')
+                            bg-yellow-100 text-yellow-800 dark:bg-yellow-700 dark:text-yellow-100
+                        @elseif ($task->priority->value === 'high')
+                            bg-red-100 text-red-800 dark:bg-red-700 dark:text-red-100
+                        @else
+                            bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300
+                        @endif
+                        text-xs font-medium px-2.5 py-0.5 rounded">
+                        {{ $task->priority->label() }}
+                    </span>
                 </td>
                 <td class="px-6 py-4">
                     @if (!$task->deleted_at)

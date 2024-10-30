@@ -24,7 +24,7 @@
             <div class="flex items-center mt-6">
                 <input type="checkbox" id="show-deleted-checkbox" wire:model.live="showDeleted"
                        class="w-4 h-4 text-blue-600 bg-slate-50 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-slate-800 focus:ring-2 dark:bg-slate-700 dark:border-slate-600">
-                <label for="show-deleted-checkbox" class="ml-2 text-sm font-medium text-slate-900 dark:text-gray-300">Exibir Tarefas Deletadas</label>
+                <label for="show-deleted-checkbox" class="ml-2 text-sm font-medium text-slate-900 dark:text-gray-300">Exibir usuários deletados</label>
             </div>
         </div>
     </div>
