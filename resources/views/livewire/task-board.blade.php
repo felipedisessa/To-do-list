@@ -3,27 +3,15 @@
         <div class="w-full md:w-1/4 p-4 bg-slate-200 dark:bg-slate-800 rounded-lg shadow-lg transition-transform transform hover:scale-105 duration-200 ease-in-out">
             <div class="flex items-center justify-between mb-4">
                 <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-200">{{ $label }}</h3>
-                <!-- Status Icon -->
-                @if($status === 'preparation')
-                    <svg class="w-6 h-6 text-blue-500 dark:text-blue-400" fill="currentColor" viewBox="0 0 24 24">
-                        <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
-                    </svg>
-                @elseif($status === 'in_progress')
-                    <svg class="w-6 h-6 text-yellow-500 dark:text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
-                        <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
-                    </svg>
-                @elseif($status === 'in_review')
-                    <svg class="w-6 h-6 text-pink-500 dark:text-pink-400" fill="currentColor" viewBox="0 0 24 24">
-                        <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
-                    </svg>
-                @elseif($status === 'completed')
-                    <svg class="w-6 h-6 text-green-500 dark:text-green-400" fill="currentColor" viewBox="0 0 24 24">
-                        <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
-                    </svg>
-                @endif
+
+                <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
+                        wire:click="$dispatch('createTaskWithStatus', { status: '{{ $status }}' })"
+                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-1.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    +
+                </button>
             </div>
 
-            <!-- Drop Zone -->
+            <!-- Zona de Soltar -->
             <div x-on:drop.prevent="Livewire.dispatch('taskDropped', { taskId: draggingTaskId, newStatus: '{{ $status }}' })"
                  x-on:dragover.prevent
                  x-on:dragenter.prevent
@@ -34,6 +22,7 @@
                  @elseif($status === 'completed') border-green-300 bg-green-50 dark:bg-green-700/20
                  @endif space-y-3">
 
+                <!-- Lista de Tarefas -->
                 @forelse ($tasks[$status] as $task)
                     <div x-on:dragstart="draggingTaskId = {{ $task->id }}"
                          x-on:dragend="draggingTaskId = null"

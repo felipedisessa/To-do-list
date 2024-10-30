@@ -14,6 +14,8 @@ class TaskForm extends Component
     public $status = 'preparation';
     public $priority = 'low';
 
+    protected $listeners = ['createTaskWithStatus'];
+
     protected $rules = [
         'name' => 'required|string|max:255',
         'description' => 'required|string',
@@ -21,6 +23,11 @@ class TaskForm extends Component
         'status' => 'required|string',
         'priority' => 'required|string',
     ];
+
+    public function createTaskWithStatus($status)
+    {
+        $this->status = $status;
+    }
 
     public function submit()
     {
