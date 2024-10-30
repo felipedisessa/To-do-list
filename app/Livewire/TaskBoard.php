@@ -2,24 +2,24 @@
 namespace App\Livewire;
 
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Collection;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use App\Models\Task;
 
 class TaskBoard extends Component
 {
-    public array $tasks = [];
     public string $draggingTaskId = '';
 
-    protected $listeners = ['taskDropped' => 'handleTaskDrop'];
+    protected $listeners = [
+        'taskDropped' => 'handleTaskDrop',
+        'taskAdded' => '$refresh', // Listener para atualizar automaticamente
+    ];
 
-    public function mount(): void
+    #[Computed]
+    public function tasks(): array
     {
-        $this->loadTasks();
-    }
-
-    public function loadTasks(): void
-    {
-        $this->tasks = [
+        return [
             'preparation' => Task::where('status', 'preparation')->get(),
             'in_progress' => Task::where('status', 'in_progress')->get(),
             'in_review' => Task::where('status', 'in_review')->get(),
@@ -33,12 +33,13 @@ class TaskBoard extends Component
         if ($task) {
             $task->status = $newStatus;
             $task->save();
-            $this->loadTasks();
         }
     }
 
     public function render(): View
     {
-        return view('livewire.task-board');
+        return view('livewire.task-board', [
+            'tasks' => $this->tasks,
+        ]);
     }
 }

@@ -15,9 +15,6 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://unpkg.com/flowbite@latest/dist/flowbite.js"></script>
 
-
-    <!-- Livewire Styles -->
-    @livewireStyles
 </head>
 <body class="font-sans antialiased">
 <div class="min-h-screen bg-slate-100 dark:bg-slate-900">
@@ -38,7 +35,5 @@
     </main>
 </div>
 
-<!-- Livewire Scripts -->
-@livewireScripts
 </body>
 </html>

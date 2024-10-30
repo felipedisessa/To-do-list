@@ -34,12 +34,13 @@
                  @elseif($status === 'completed') border-green-300 bg-green-50 dark:bg-green-700/20
                  @endif space-y-3">
 
-                <!-- Task List -->
                 @forelse ($tasks[$status] as $task)
                     <div x-on:dragstart="draggingTaskId = {{ $task->id }}"
                          x-on:dragend="draggingTaskId = null"
+                         x-on:click="$dispatch('loadTask', { taskId: {{ $task->id }} })"
+                         data-modal-target="edit-crud-modal" data-modal-toggle="edit-crud-modal"
                          draggable="true"
-                         class="p-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 ease-in-out cursor-move">
+                         class="p-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 ease-in-out cursor-pointer">
                         <p class="text-md font-medium text-slate-900 dark:text-slate-200">{{ $task->name }}</p>
                         <p class="text-sm text-slate-500 dark:text-slate-400">{{ $task->description }}</p>
                     </div>
