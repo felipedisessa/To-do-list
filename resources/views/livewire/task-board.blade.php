@@ -6,8 +6,7 @@
     @foreach (['preparation' => 'Preparação', 'in_progress' => 'Em Andamento', 'in_review' => 'Em Revisão', 'completed' => 'Concluído'] as $status => $label)
         <div class="w-full md:w-1/4 p-4 bg-slate-200 dark:bg-slate-800 rounded-lg shadow-lg transition-transform transform hover:scale-105 duration-200 ease-in-out">
             <div class="flex items-center justify-between mb-4">
-                <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-200">{{ $label }}</h3>
-
+                <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-200">{{ $label }} ({{ count($tasks[$status]) }})</h3>
                 @if ($status === 'preparation')
                     <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
                             class="text-lg text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-4 py-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -37,7 +36,13 @@
                          class="p-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 ease-in-out cursor-pointer">
                         <p class="text-md font-medium text-slate-900 dark:text-slate-200">{{ $task->name }}</p>
                         <p class="text-sm text-slate-500 dark:text-slate-400">{{ $task->description }}</p>
-                        <p class="text-sm text-slate-500 dark:text-slate-400">{{'Vence em: '. Carbon::parse($task->due_date)->format('d/m/Y') }}</p>
+                        <span class="
+                        {{ Carbon::parse($task->due_date)->isPast()
+                            ? 'bg-red-100 text-red-800 dark:bg-red-700 dark:text-red-100'
+                            : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'
+                        }} text-xs font-medium px-2.5 py-0.5 rounded">
+                        {{ Carbon::parse($task->due_date)->format('d/m/Y') }}
+                    </span>
                     </div>
                 @empty
                     <p class="text-sm text-slate-500 dark:text-slate-400">Nenhuma tarefa</p>
