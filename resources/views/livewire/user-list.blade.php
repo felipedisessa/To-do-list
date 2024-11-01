@@ -30,7 +30,7 @@
     </div>
 
     @if (session()->has('message'))
-        <div class="p-3 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">
+        <div class="p-3 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-700 dark:text-green-100" role="alert">
             {{ session('message') }}
         </div>
     @endif
@@ -51,6 +51,12 @@
                 <td class="px-6 py-4">{{ $user->email }}</td>
                 <td class="px-6 py-4">{{ UserRole::from($user->role)->label() }}</td>
                 <td class="px-6 py-4">
+                    @if ($user->deleted_at)
+                        <button type="button" wire:click="restoreUser({{ $user->id }})"
+                                class="focus:outline-none text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-700 dark:hover:bg-blue-800 dark:focus:ring-blue-900">
+                            Reativar
+                        </button>
+                    @endif
                     @if (!$user->deleted_at)
                         <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-2">
                     <button type="button" data-modal-target="edit-user-modal" data-modal-toggle="edit-user-modal"

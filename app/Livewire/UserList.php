@@ -36,6 +36,14 @@ class UserList extends Component
         session()->flash('message', 'Usuário excluído com sucesso.');
     }
 
+    public function restoreUser($id)
+    {
+        $user = User::onlyTrashed()->findOrFail($id);
+        $user->restore();
+
+        session()->flash('message', 'Usuário reativado com sucesso.');
+    }
+
     public function render()
     {
         return view('livewire.user-list', [
