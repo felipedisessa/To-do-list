@@ -82,13 +82,19 @@
                     </span>
                 </td>
                 <td class="px-6 py-4">
-                    <span class="
-                        {{ $task->status->value === 'completed'
-                            ? 'bg-green-200 text-green-800 dark:bg-green-700 dark:text-green-100'
-                            : 'bg-blue-200 text-blue-800 dark:bg-blue-700 dark:text-blue-100'
-                        }} text-xs font-medium px-2.5 py-0.5 rounded">
-                        {{ $task->status->label() }}
-                    </span>
+    <span class="
+        @if ($task->status->value === 'preparation')
+            bg-blue-200 text-blue-800 dark:bg-blue-700 dark:text-blue-100
+        @elseif ($task->status->value === 'in_progress')
+            bg-yellow-200 text-yellow-800 dark:bg-yellow-700 dark:text-yellow-100
+        @elseif ($task->status->value === 'in_review')
+            bg-pink-200 text-pink-800 dark:bg-pink-700 dark:text-pink-100
+        @elseif ($task->status->value === 'completed')
+            bg-green-200 text-green-800 dark:bg-green-700 dark:text-green-100
+        @endif
+        text-xs font-medium px-2.5 py-0.5 rounded">
+        {{ $task->status->label() }}
+    </span>
                 </td>
                 <td class="px-6 py-4">
                     <span class="

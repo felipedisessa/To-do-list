@@ -1,14 +1,19 @@
+@php
+    use Carbon\Carbon;
+@endphp
+
 <div x-data="{ draggingTaskId: null }" class="flex flex-col space-y-6 md:flex-row md:space-x-6 md:space-y-0">
     @foreach (['preparation' => 'Preparação', 'in_progress' => 'Em Andamento', 'in_review' => 'Em Revisão', 'completed' => 'Concluído'] as $status => $label)
         <div class="w-full md:w-1/4 p-4 bg-slate-200 dark:bg-slate-800 rounded-lg shadow-lg transition-transform transform hover:scale-105 duration-200 ease-in-out">
             <div class="flex items-center justify-between mb-4">
                 <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-200">{{ $label }}</h3>
 
-                <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
-                        wire:click="$dispatch('createTaskWithStatus', { status: '{{ $status }}' })"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-1.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    +
-                </button>
+                @if ($status === 'preparation')
+                    <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
+                            class="text-lg text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-4 py-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        +
+                    </button>
+                @endif
             </div>
 
             <!-- Zona de Soltar -->
@@ -32,6 +37,7 @@
                          class="p-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 ease-in-out cursor-pointer">
                         <p class="text-md font-medium text-slate-900 dark:text-slate-200">{{ $task->name }}</p>
                         <p class="text-sm text-slate-500 dark:text-slate-400">{{ $task->description }}</p>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">{{'Vence em: '. Carbon::parse($task->due_date)->format('d/m/Y') }}</p>
                     </div>
                 @empty
                     <p class="text-sm text-slate-500 dark:text-slate-400">Nenhuma tarefa</p>

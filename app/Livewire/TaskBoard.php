@@ -13,7 +13,7 @@ class TaskBoard extends Component
 
     protected $listeners = [
         'taskDropped' => 'handleTaskDrop',
-        'taskAdded' => '$refresh', // Listener para atualizar automaticamente
+        'taskAdded' => '$refresh',
     ];
 
     #[Computed]
