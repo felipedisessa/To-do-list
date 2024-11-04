@@ -28,7 +28,7 @@ class TaskForm extends Component
         'user_id' => 'required|integer|exists:users,id',
     ];
 
-    public function mount()
+    public function mount(): void
     {
         if (Gate::allows('admin-access')) {
             $this->users = User::all();
@@ -37,12 +37,14 @@ class TaskForm extends Component
         }
     }
 
-    public function submit()
+    public function submit(): void
     {
         $this->validate();
 
-        Task::create([
-            'user_id' => $this->user_id,
+        $user_id = Auth::user()->role === 'user' ? Auth::user()->id : $this->user_id;
+
+        Task::query()->create([
+            'user_id' => $user_id,
             'name' => $this->name,
             'description' => $this->description,
             'due_date' => $this->due_date,

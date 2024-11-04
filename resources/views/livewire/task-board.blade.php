@@ -6,7 +6,7 @@
     @foreach (['preparation' => 'Preparação', 'in_progress' => 'Em Andamento', 'in_review' => 'Em Revisão', 'completed' => 'Concluído'] as $status => $label)
         <div class="w-full md:w-1/4 p-4 bg-slate-200 dark:bg-slate-800 rounded-lg shadow-lg transition-transform transform hover:scale-105 duration-200 ease-in-out">
             <div class="flex items-center justify-between mb-4">
-                <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-200">{{ $label }} ({{ count($tasks[$status]) }})</h3>
+                <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-200 py-1">{{ $label }} ({{ count($tasks[$status]) }})</h3>
                 @if ($status === 'preparation')
                     <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
                             class="text-lg text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-4 py-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">

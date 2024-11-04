@@ -24,8 +24,6 @@
                 </select>
                 @error('user_id') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
             </div>
-        @else
-            <input type="hidden" wire:model="user_id" value="{{ auth()->user()->id }}">
         @endcan
 
         <div>
