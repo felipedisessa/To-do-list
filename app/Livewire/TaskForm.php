@@ -2,17 +2,22 @@
 
 namespace App\Livewire;
 
+use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class TaskForm extends Component
 {
-    public $name;
-    public $description;
-    public $due_date;
-    public $status = 'preparation';
-    public $priority = 'low';
+    public int $user_id;
+    public string $name;
+    public string $description;
+    public string $due_date;
+    public string $status = 'preparation';
+    public string $priority = 'low';
+
+    public $users;
 
     protected $rules = [
         'name' => 'required|string|max:255',
@@ -20,14 +25,24 @@ class TaskForm extends Component
         'due_date' => 'required|date',
         'status' => 'required|string',
         'priority' => 'required|string',
+        'user_id' => 'required|integer|exists:users,id',
     ];
+
+    public function mount()
+    {
+        if (Gate::allows('admin-access')) {
+            $this->users = User::all();
+        } else {
+            $this->user_id = Auth::id();
+        }
+    }
 
     public function submit()
     {
         $this->validate();
 
         Task::create([
-            'user_id' => Auth::id(),
+            'user_id' => $this->user_id,
             'name' => $this->name,
             'description' => $this->description,
             'due_date' => $this->due_date,
@@ -35,7 +50,7 @@ class TaskForm extends Component
             'priority' => $this->priority,
         ]);
 
-        $this->reset(['name', 'description', 'due_date', 'status', 'priority']);
+        $this->reset(['name', 'description', 'due_date', 'status', 'priority', 'user_id']);
 
         $this->dispatch('taskAdded');
         session()->flash('message', 'Tarefa cadastrada com sucesso!');

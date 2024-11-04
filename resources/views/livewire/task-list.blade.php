@@ -40,6 +40,18 @@
                 <input type="date" wire:model.live="dateFilter"
                        class="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             </div>
+
+            @can('admin-access')
+                <div>
+                    <label class="block mb-2 text-sm font-medium text-slate-900 dark:text-white">Usuário</label>
+                    <select wire:model.live="userFilter" class="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option value="">Minhas Tarefas</option>
+                        @foreach ($users as $user)
+                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            @endcan
             <!-- Checkbox para Exibir Tarefas Deletadas -->
             <div class="flex items-center mt-6">
                 <input type="checkbox" id="show-deleted-checkbox" wire:model.live="showDeleted"

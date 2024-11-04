@@ -5,6 +5,8 @@ use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use App\Models\Task;
+use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 
 class TaskList extends Component
 {
@@ -12,15 +14,24 @@ class TaskList extends Component
     public string $priorityFilter = '';
     public string $dateFilter = '';
     public bool $showDeleted = false;
+    public ?int $userFilter = null;
 
     protected $listeners = ['taskAdded' => '$refresh'];
 
     #[Computed]
     public function tasks(): Collection
     {
-        $query = $this->showDeleted
-            ? Task::withTrashed()->where('user_id', auth()->id())
-            : Task::query()->where('user_id', auth()->id());
+        $query = Task::query();
+
+        if ($this->showDeleted) {
+            $query->withTrashed();
+        }
+
+        if (Gate::allows('admin-access') && $this->userFilter) {
+            $query->where('user_id', $this->userFilter);
+        } else {
+            $query->where('user_id', auth()->id());
+        }
 
         if ($this->statusFilter) {
             $query->where('status', $this->statusFilter);
@@ -47,6 +58,7 @@ class TaskList extends Component
 
     public function render()
     {
-        return view('livewire.task-list');
+        $users = Gate::allows('admin-access') ? User::all() : collect();
+        return view('livewire.task-list', ['users' => $users]);
     }
 }

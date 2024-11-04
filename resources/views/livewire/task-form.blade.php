@@ -12,7 +12,22 @@
     @endif
 
     <form wire:submit="submit" class="space-y-6">
-        <!-- Nome da Tarefa -->
+        @can('admin-access')
+            <div>
+                <label for="user_id" class="block mb-2 text-sm font-medium text-slate-900 dark:text-white">Usuário:</label>
+                <select wire:model="user_id"
+                        class="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white">
+                    <option value="">Selecione um usuário</option>
+                    @foreach ($users as $user)
+                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                    @endforeach
+                </select>
+                @error('user_id') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
+            </div>
+        @else
+            <input type="hidden" wire:model="user_id" value="{{ auth()->user()->id }}">
+        @endcan
+
         <div>
             <label for="name" class="block mb-2 text-sm font-medium text-slate-900 dark:text-white">Nome da Tarefa:</label>
             <input type="text" id="name" wire:model.live="name"
@@ -54,7 +69,7 @@
         <!-- Prioridade -->
         <div>
             <label for="priority" class="block mb-2 text-sm font-medium text-slate-900 dark:text-white">Prioridade:</label>
-            <select id="priority" wire:model.live="priority"
+            <select wire:model.live="priority"
                     class="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white">
                 @foreach (TaskPriority::options() as $value => $label)
                     <option value="{{ $value }}">{{ $label }}</option>
