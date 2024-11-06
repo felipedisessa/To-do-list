@@ -15,7 +15,15 @@
         </div>
     </x-slot>
     @livewire('user-list')
-</x-app-layout>
+    @include('users.modal.create')
+    @include('users.modal.edit')
 
-@include('users.modal.create')
-@include('users.modal.edit')
+    <script type="module">
+        window.addEventListener('userUpdated', () => {
+            setTimeout(() => {
+                // window.location.reload();
+                initFlowbite();
+            }, 1000);
+        });
+    </script>
+</x-app-layout>

@@ -15,7 +15,15 @@
         </div>
     </x-slot>
     @livewire('task-list')
-</x-app-layout>
+    @include('tasks.modal.edit')
+    @include('tasks.modal.create')
 
-@include('tasks.modal.edit')
-@include('tasks.modal.create')
+    <script type="module">
+        window.addEventListener('taskAdded', () => {
+            setTimeout(() => {
+                // window.location.reload();
+                initFlowbite();
+            }, 1000);
+            });
+    </script>
+</x-app-layout>
