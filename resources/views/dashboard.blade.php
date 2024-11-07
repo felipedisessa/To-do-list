@@ -20,7 +20,21 @@
             <livewire:task-board />
         </div>
     </div>
-</x-app-layout>
 
-@include('tasks.modal.edit')
-@include('tasks.modal.create')
+    @include('tasks.modal.edit')
+    @include('tasks.modal.create')
+
+    <script>
+        window.addEventListener('taskAdded', () => {
+            const modals = [document.getElementById('crud-modal'), document.getElementById('edit-crud-modal')];
+            setTimeout(() => {
+                modals.forEach(modal => {
+                    if (modal) {
+                        modal.classList.add('hidden');
+                    }
+                });
+                initFlowbite();
+            }, 1000);
+        });
+    </script>
+</x-app-layout>

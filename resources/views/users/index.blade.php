@@ -14,14 +14,19 @@
             </button>
         </div>
     </x-slot>
-    @livewire('user-list')
+    <livewire:user-list />
     @include('users.modal.create')
     @include('users.modal.edit')
 
-    <script type="module">
+    <script>
         window.addEventListener('userUpdated', () => {
+            const modals = [document.getElementById('create-user-modal'), document.getElementById('edit-user-modal')];
             setTimeout(() => {
-                // window.location.reload();
+                modals.forEach(modal => {
+                    if (modal) {
+                        modal.classList.add('hidden');
+                    }
+                });
                 initFlowbite();
             }, 1000);
         });

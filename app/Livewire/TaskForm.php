@@ -56,6 +56,7 @@ class TaskForm extends Component
 
         $this->dispatch('taskAdded');
         session()->flash('message', 'Tarefa cadastrada com sucesso!');
+        $this->dispatch('closeModal');
     }
 
     public function render()

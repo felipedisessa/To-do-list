@@ -14,16 +14,21 @@
             </button>
         </div>
     </x-slot>
-    @livewire('task-list')
+    <livewire:task-list />
     @include('tasks.modal.edit')
     @include('tasks.modal.create')
 
-    <script type="module">
+    <script>
         window.addEventListener('taskAdded', () => {
+            const modals = [document.getElementById('crud-modal'), document.getElementById('edit-crud-modal')];
             setTimeout(() => {
-                // window.location.reload();
+                modals.forEach(modal => {
+                    if (modal) {
+                        modal.classList.add('hidden');
+                    }
+                });
                 initFlowbite();
             }, 1000);
-            });
+        });
     </script>
 </x-app-layout>
