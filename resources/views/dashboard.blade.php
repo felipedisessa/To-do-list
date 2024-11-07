@@ -36,5 +36,10 @@
                 initFlowbite();
             }, 1000);
         });
+        window.addEventListener('taskChanged', () => {
+            setTimeout(() => {
+                initFlowbite();
+            }, 500);
+        });
     </script>
 </x-app-layout>

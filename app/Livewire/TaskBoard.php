@@ -37,6 +37,8 @@ class TaskBoard extends Component
             $task->status = $newStatus;
             $task->save();
         }
+
+        $this->dispatch('taskChanged');
     }
 
     public function render(): View
